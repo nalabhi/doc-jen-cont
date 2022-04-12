@@ -142,7 +142,7 @@ resource "aws_spot_instance_request" "app_server" {
       echo "FROM jenkins/jenkins:latest" >> Dockerfile
       echo "ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false" >> Dockerfile
       docker build -t jenkins:latest .
-      #docker run -d -p 8080:8080 -v /jen-container:/var/jenkins_home -u root jenkins:latest
+      #docker run -d -p 8080:8080 -v /opt:/var/jenkins_home -u root jenkins:latest
       EOF
 }
 
