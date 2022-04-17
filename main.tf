@@ -130,8 +130,8 @@ resource "aws_spot_instance_request" "app_server" {
     
   user_data = <<-EOF
       #!/bin/bash 
-      yum install git* -y
-      yum install httpd
+      yum install git -y
+      yum install httpd -y
       yum install yum-utils -y
       yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
       yum install docker-ce docker-ce-cli containerd.io -y
