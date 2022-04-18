@@ -137,10 +137,10 @@ resource "aws_spot_instance_request" "app_server" {
       yum install docker-ce docker-ce-cli containerd.io -y
       systemctl start docker
       lsblk
-      file -s /dev/sdf
-      mkfs -t xfs /dev/sdf
+      file -s /dev/xvdf
+      mkfs -t xfs /dev/xvdf
       mkdir jen-container 
-      mount /dev/sdf /jen-container
+      mount /dev/xvdf /jen-container
       mkdir jenkins_image
       cd jenkins_image
       touch Dockerfile
