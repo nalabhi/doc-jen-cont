@@ -136,6 +136,11 @@ resource "aws_spot_instance_request" "app_server" {
       yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
       yum install docker-ce docker-ce-cli containerd.io -y
       systemctl start docker
+      lsblk
+      file -s /dev/sdf
+      mkfs -t xfs /dev/sdf
+      mkdir jen-container 
+      mount /dev/sdf /jen-container
       mkdir jenkins_image
       cd jenkins_image
       touch Dockerfile
