@@ -131,16 +131,18 @@ resource "aws_spot_instance_request" "app_server" {
   user_data = <<-EOF
       #!/bin/bash 
       yum install git -y
+      yum install java-1.8.0-openjdk -y
       yum install httpd -y
+      cd /opt/
+      wget https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz
+      tar -xvzf apache-maven-3.8.5-bin.tar.gz
+      sed -i '/^PATH/ i M2_HOME=/opt/apache-maven-3.8.5' /root/.bash_profile
+      sed -i '/^M2_HOME/ a M2=$M2_HOME/bin' /root/.bash_profile
+      sed -i '/^PATH/ s/$/:$M2_HOME:$M2/' /root/.bash_profile
       yum install yum-utils -y
       yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
       yum install docker-ce docker-ce-cli containerd.io -y
       systemctl start docker
-      lsblk
-      file -s /dev/xvdf
-      mkfs -t xfs /dev/xvdf
-      mkdir jen-container 
-      mount /dev/xvdf /jen-container
       mkdir jenkins_image
       cd jenkins_image
       touch Dockerfile
